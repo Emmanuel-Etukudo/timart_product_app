@@ -18,7 +18,6 @@ const SqfEntityTable tableProducts = SqfEntityTable(
       SqfEntityField('quantity', DbType.integer),
       SqfEntityField('cost_price', DbType.real),
       SqfEntityField('selling_price', DbType.real),
-      SqfEntityField('product_image', DbType.text),
     ]);
 
 const seqIdentity = SqfEntitySequence(

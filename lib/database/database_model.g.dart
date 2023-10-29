@@ -37,7 +37,6 @@ class TableProduct extends SqfEntityTableBase {
       SqfEntityFieldBase('quantity', DbType.integer),
       SqfEntityFieldBase('cost_price', DbType.real),
       SqfEntityFieldBase('selling_price', DbType.real),
-      SqfEntityFieldBase('product_image', DbType.text),
     ];
     super.init();
   }
@@ -104,17 +103,16 @@ class Product extends TableBase {
       this.name,
       this.quantity,
       this.cost_price,
-      this.selling_price,
-      this.product_image}) {
+      this.selling_price}) {
     _setDefaultValues();
     softDeleteActivated = false;
   }
-  Product.withFields(this.name, this.quantity, this.cost_price,
-      this.selling_price, this.product_image) {
+  Product.withFields(
+      this.name, this.quantity, this.cost_price, this.selling_price) {
     _setDefaultValues();
   }
-  Product.withId(this.id, this.name, this.quantity, this.cost_price,
-      this.selling_price, this.product_image) {
+  Product.withId(
+      this.id, this.name, this.quantity, this.cost_price, this.selling_price) {
     _setDefaultValues();
   }
   // fromMap v2.0
@@ -135,9 +133,6 @@ class Product extends TableBase {
     if (o['selling_price'] != null) {
       selling_price = double.tryParse(o['selling_price'].toString());
     }
-    if (o['product_image'] != null) {
-      product_image = o['product_image'].toString();
-    }
   }
   // FIELDS (Product)
   int? id;
@@ -145,7 +140,6 @@ class Product extends TableBase {
   int? quantity;
   double? cost_price;
   double? selling_price;
-  String? product_image;
 
   // end FIELDS (Product)
 
@@ -174,9 +168,6 @@ class Product extends TableBase {
     if (selling_price != null || !forView) {
       map['selling_price'] = selling_price;
     }
-    if (product_image != null || !forView) {
-      map['product_image'] = product_image;
-    }
 
     return map;
   }
@@ -200,9 +191,6 @@ class Product extends TableBase {
     if (selling_price != null || !forView) {
       map['selling_price'] = selling_price;
     }
-    if (product_image != null || !forView) {
-      map['product_image'] = product_image;
-    }
 
     return map;
   }
@@ -221,12 +209,12 @@ class Product extends TableBase {
 
   @override
   List<dynamic> toArgs() {
-    return [name, quantity, cost_price, selling_price, product_image];
+    return [name, quantity, cost_price, selling_price];
   }
 
   @override
   List<dynamic> toArgsWithIds() {
-    return [id, name, quantity, cost_price, selling_price, product_image];
+    return [id, name, quantity, cost_price, selling_price];
   }
 
   static Future<List<Product>?> fromWebUrl(Uri uri,
@@ -374,8 +362,8 @@ class Product extends TableBase {
   Future<int?> upsert({bool ignoreBatch = true}) async {
     try {
       final result = await _mnProduct.rawInsert(
-          'INSERT OR REPLACE INTO products (id, name, quantity, cost_price, selling_price, product_image)  VALUES (?,?,?,?,?,?)',
-          [id, name, quantity, cost_price, selling_price, product_image],
+          'INSERT OR REPLACE INTO products (id, name, quantity, cost_price, selling_price)  VALUES (?,?,?,?,?)',
+          [id, name, quantity, cost_price, selling_price],
           ignoreBatch);
       if (result! > 0) {
         saveResult = BoolResult(
@@ -401,7 +389,7 @@ class Product extends TableBase {
   Future<BoolCommitResult> upsertAll(List<Product> products,
       {bool? exclusive, bool? noResult, bool? continueOnError}) async {
     final results = await _mnProduct.rawInsertAll(
-        'INSERT OR REPLACE INTO products (id, name, quantity, cost_price, selling_price, product_image)  VALUES (?,?,?,?,?,?)',
+        'INSERT OR REPLACE INTO products (id, name, quantity, cost_price, selling_price)  VALUES (?,?,?,?,?)',
         products,
         exclusive: exclusive,
         noResult: noResult,
@@ -680,12 +668,6 @@ class ProductFilterBuilder extends ConjunctionBase {
         _setField(_selling_price, 'selling_price', DbType.real);
   }
 
-  ProductField? _product_image;
-  ProductField get product_image {
-    return _product_image =
-        _setField(_product_image, 'product_image', DbType.text);
-  }
-
   /// Deletes List<Product> bulk by query
   ///
   /// <returns>BoolResult res.success= true (Deleted), false (Could not be deleted)
@@ -931,12 +913,6 @@ class ProductFields {
   static TableField get selling_price {
     return _fSelling_price = _fSelling_price ??
         SqlSyntax.setField(_fSelling_price, 'selling_price', DbType.real);
-  }
-
-  static TableField? _fProduct_image;
-  static TableField get product_image {
-    return _fProduct_image = _fProduct_image ??
-        SqlSyntax.setField(_fProduct_image, 'product_image', DbType.text);
   }
 }
 // endregion ProductFields

@@ -20,6 +20,8 @@ dependencies:
   sqfentity: ^2.4.0
   sqfentity_gen: ^2.3.0+4
   http: ^1.1.0
+  get: ^4.6.6
+  flutter_svg: ^2.0.8
 
 dev_dependencies:
   flutter_test:
@@ -36,3 +38,6 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  assets:
+    - assets/images/
