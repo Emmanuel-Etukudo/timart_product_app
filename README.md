@@ -1,16 +1,21 @@
 # timart_product_app
 
-A new Flutter project.
+**Open Your Project:**
 
-## Getting Started
+Open your project in your code editor.
 
-This project is a starting point for a Flutter application.
+**Install Dependencies:**
 
-A few resources to get you started if this is your first Flutter project:
+In your project folder, run `flutter pub get` to fetch and install the project's dependencies.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+**Run the App:**
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Run your Flutter app by executing `flutter run` in your project's root directory.
+
+If you have multiple devices or emulators connected, specify the target with `flutter run -d <device_id>`.
+
+**View the App:**
+
+The app will launch on the selected emulator or physical device.
+
+You can interact with and test your app during development.
