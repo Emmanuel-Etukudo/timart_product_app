@@ -1,29 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:timart_product_app/database/database_model.dart';
+import 'package:get/get.dart';
+import 'package:timart_product_app/features/controllers/add_product_controller.dart';
+import 'package:timart_product_app/features/edit_product_view.dart';
 import 'package:timart_product_app/features/product_card.dart';
 
-class ProductListView extends StatefulWidget {
-  const ProductListView({super.key});
+class ProductListView extends StatelessWidget {
+  final AddProductController controller = Get.put(AddProductController());
 
-  @override
-  State<ProductListView> createState() => _ProductListViewState();
-}
+  ProductListView({super.key});
 
-class _ProductListViewState extends State<ProductListView> {
-  List<Product> products = [];
-
-  loadData() async {
-    products = await Product().select().toList();
-  }
-
-  @override
-  void initState() {
-    loadData();
-    super.initState();
-  }
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    controller.loadData();
+    //return Once()
+    return Obx(() {
+      return ListView(
         children: [
           const SizedBox(
             height: 16.0,
@@ -34,24 +25,32 @@ class _ProductListViewState extends State<ProductListView> {
             height: MediaQuery.of(context).size.height - 50,
             child: GridView.builder(
               primary: false,
-                itemCount: products.length,
+              itemCount: controller.products.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 crossAxisSpacing: 10.0,
                 mainAxisSpacing: 15.0,
               ),
               itemBuilder: (BuildContext context, int index) {
+                final product = controller.products[index];
                 return ProductCard(
-                    name: products[index].name!,
-                    quantity: products[index].quantity!,
-                    costPrice: products[index].cost_price!,
-                    sellingPrice: products[index].selling_price!,
-                    imageUrl: 'imageUrl');
+                  name: product.name!,
+                  quantity: product.quantity!,
+                  costPrice: product.cost_price!,
+                  sellingPrice: product.selling_price!,
+                  imageUrl: 'imageUrl',
+                  onDelete: () {
+                    controller.deleteProduct(product);
+                  },
+                  onEdit: () {
+                    Get.to(EditProductView(productToEdit: product));
+                  },
+                );
               },
             ),
-          )
+          ),
         ],
-
-    );
+      );
+    });
   }
 }

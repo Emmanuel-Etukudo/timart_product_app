@@ -32,9 +32,7 @@ class _ProductsViewState extends State<ProductsView> {
       appBar: AppBar(
         title: const Text('Products Screen'),
       ),
-      body: products.isEmpty
-          ? const EmptyProductsView()
-          : const ProductListView(),
+      body: products.isEmpty ? const EmptyProductsView() : ProductListView(),
       floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
           onPressed: () {

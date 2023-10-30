@@ -9,5 +9,5 @@ enum AppRoute {
 final getRouter = [
   GetPage(name: '/', page: () => const ProductsView()),
   GetPage(
-      name: '/${AppRoute.addProducts.name}', page: () => const AddProductView())
+      name: '/${AppRoute.addProducts.name}', page: () =>  AddProductView())
 ];

@@ -1,26 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:timart_product_app/constants/app_sizes.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({
-    super.key,
-    required this.name,
-    required this.quantity,
-    required this.costPrice,
-    required this.sellingPrice,
-    required this.imageUrl,
-  });
+  const ProductCard(
+      {super.key,
+      required this.name,
+      required this.quantity,
+      required this.costPrice,
+      required this.sellingPrice,
+      required this.imageUrl,
+      required this.onDelete,
+      required this.onEdit});
   final String name;
   final int quantity;
   final double costPrice;
   final double sellingPrice;
   final String imageUrl;
+  final VoidCallback onDelete;
+  final VoidCallback onEdit;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:
-          const EdgeInsets.only( left: 5.0, right: 5.0),
+      padding: const EdgeInsets.only(left: 5.0, right: 5.0),
       child: Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15.0),
@@ -33,15 +36,26 @@ class ProductCard extends StatelessWidget {
             color: Colors.white),
         child: Column(
           children: [
-            const Padding(
+            Padding(
               padding: EdgeInsets.all(5.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Icon(
-                    Icons.delete,
-                    color: Color(0xFFEF & 532),
-                  )
+                  GestureDetector(
+                    onTap: onDelete,
+                    child: const Icon(
+                      Icons.delete,
+                      color: Colors.deepOrange,
+                    ),
+                  ),
+                  gapW16,
+                  GestureDetector(
+                    onTap: onEdit,
+                    child: const Icon(
+                      Icons.edit,
+                      color: Colors.deepOrange,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -51,7 +65,7 @@ class ProductCard extends StatelessWidget {
               width: 75,
             ),
             const SizedBox(
-              height: 7.0,
+              height: 6.0,
             ),
             Text(sellingPrice.toString()),
             Text(name),
